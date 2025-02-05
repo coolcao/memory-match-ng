@@ -1,0 +1,22 @@
+<div class="flex h-screen w-screen items-center justify-center">
+  <div
+    class="flex min-h-[500px] min-w-[500px] flex-col items-center justify-center border-2 border-solid border-gray-400"
+  >
+    @for (rows of cells(); track $index; let row = $index) {
+      <div class="flex w-full items-center justify-center">
+        @for (cell of rows; track $index; let col = $index) {
+          <div
+            (click)="clickCell(row, col, cell.value)"
+            class="flex min-h-16 min-w-16 cursor-pointer items-center justify-center border border-solid border-gray-300 text-4xl"
+          >
+            @if (cell.isOpen) {
+              {{ cell.value }}
+            } @else {
+              ⬜️
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
