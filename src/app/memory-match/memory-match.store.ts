@@ -1,4 +1,4 @@
-import { Injectable, signal, WritableSignal } from "@angular/core";
+import { computed, Injectable, signal, WritableSignal } from "@angular/core";
 import { Cell } from "./memory-match.types";
 
 const smileys = ['😀', '😃', '😆', '🙂', '😊', '😉', '🤗', '😝', '😛', '😑', '😐', '😚', '😙', '😰', '😨', '😮', '😲', '😵', '😍', '🥰'];
@@ -11,6 +11,18 @@ export class MemoryMatchStore {
   private _cells: WritableSignal<Cell[][]> = signal([]);
 
   readonly cells = this._cells.asReadonly();
+
+  readonly openedCount = computed(() => {
+    return this._cells().reduce((count, row) => {
+      return count + row.filter(cell => cell.isOpen && cell.value != '').length;
+    }, 0);
+  });
+
+  readonly isCompleted = computed(() => {
+    return this._cells().reduce((count, row) => {
+      return count + row.filter(cell => cell.value != '').length;
+    }, 0) === 0;
+  });
 
   initCells(rows: number, cols: number) {
     // 计算总的单元格数量

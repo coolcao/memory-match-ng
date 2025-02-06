@@ -10,6 +10,7 @@ import { MemoryMatchStore } from '../memory-match.store';
   styleUrl: './memory-match-board.component.css'
 })
 export class MemoryMatchBoardComponent implements OnInit {
+  store = inject(MemoryMatchStore);
 
   rows = 4;
   cols = 4;
@@ -21,11 +22,11 @@ export class MemoryMatchBoardComponent implements OnInit {
     y: -1,
   };
 
-  clickedCount = 0;
-
-  store = inject(MemoryMatchStore);
+  steps = 0;
 
   cells = this.store.cells;
+  openedCount = this.store.openedCount;
+  isCompleted = this.store.isCompleted;
 
   ngOnInit(): void {
     this.store.initCells(this.rows, this.cols);
@@ -35,13 +36,14 @@ export class MemoryMatchBoardComponent implements OnInit {
     if (value == '') {
       return;
     }
-    if (this.clickedCount == 2) {
+    if (this.openedCount() == 2) {
       return;
     }
 
+    this.steps++;
+
     // 先打开
     this.store.openCell(x, y);
-    this.clickedCount++;
     // 第一次点击，打开第一个做标记
     if (this.clicked.value == '') {
       this.setClicked(x, y, value);
@@ -53,7 +55,6 @@ export class MemoryMatchBoardComponent implements OnInit {
         this.store.removeCell(x, y);
         this.store.removeCell(this.clicked.x, this.clicked.y);
         this.resetClicked();
-        this.clickedCount = 0;
       });
       return;
     }
@@ -63,7 +64,6 @@ export class MemoryMatchBoardComponent implements OnInit {
       this.store.closeCell(this.clicked.x, this.clicked.y);
       this.store.closeCell(x, y);
       this.resetClicked();
-      this.clickedCount = 0;
     });
 
   }
