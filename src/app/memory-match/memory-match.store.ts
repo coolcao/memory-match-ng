@@ -1,7 +1,8 @@
 import { computed, Injectable, signal, WritableSignal } from "@angular/core";
-import { Cell } from "./memory-match.types";
+import { Cell, CellType } from "./memory-match.types";
 
 const smileys = ['😀', '😃', '😆', '🙂', '😊', '😉', '🤗', '😝', '😛', '😑', '😐', '😚', '😙', '😰', '😨', '😮', '😲', '😵', '😍', '🥰'];
+const animals = ['🐶', '🐱', '🐭', '🐹', '🐰', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐲', '🐵', '🐔', '🐧', '🐺', '🦆', '🦅', '🦉', '🦇', '🐴', '🐝', '🦋', '🐌', '🐞', '🐜', '🪰', '🪲', '🪳', '🦗', '🕷', '🦂', '🐢', '🦖', '🦕', '🐙', '🦐', '🦞', '🦀', '🪼', '🐡', '🐠', '🐬', '🐳', '🐋', '🦈', '🐊', '🐅', '🐆', '🦓', '🫏', '🦍', '🦧', '🐘', '🦒', '🐫', '🦘', '🐄', '🐎', '🐖', '🐏', '🦌', '🦮', '🐈', '🐓', '🦚', '🦜', '🐇', '🕊', '🦥', '🐁', '🐿', '🦔', '🐩'];
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +25,19 @@ export class MemoryMatchStore {
     }, 0) === 0;
   });
 
-  initCells(rows: number, cols: number) {
+  initCells(rows: number, cols: number, type: CellType) {
     // 计算总的单元格数量
     const totalCells = rows * cols;
     // 确保总数是偶数，否则无法配对
     if (totalCells % 2 !== 0) {
       throw new Error('总单元格数量必须为偶数以确保可以配对');
+    }
+
+    let emojis: string[] = [];
+    if (type === CellType.Smileys) {
+      emojis = smileys;
+    } else if (type === CellType.Animals) {
+      emojis = animals;
     }
 
     // 创建需要的表情数组，每个表情出现两次
@@ -38,7 +46,7 @@ export class MemoryMatchStore {
 
     // 随机选择表情并确保每个都出现两次
     for (let i = 0; i < pairsCount; i++) {
-      const emoji = smileys[Math.floor(Math.random() * smileys.length)];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
       neededPairs.push(emoji, emoji);
     }
 

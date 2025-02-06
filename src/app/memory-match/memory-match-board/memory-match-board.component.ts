@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
 import { MemoryMatchStore } from '../memory-match.store';
+import { CellType } from '../memory-match.types';
 
 @Component({
   selector: 'app-memory-match-board',
@@ -11,7 +12,9 @@ import { MemoryMatchStore } from '../memory-match.store';
 })
 export class MemoryMatchBoardComponent implements OnInit {
   store = inject(MemoryMatchStore);
+  CellType = CellType;
 
+  type: CellType = CellType.Smileys;
   rows = 4;
   cols = 4;
 
@@ -29,7 +32,7 @@ export class MemoryMatchBoardComponent implements OnInit {
   isCompleted = this.store.isCompleted;
 
   ngOnInit(): void {
-    this.store.initCells(this.rows, this.cols);
+    this.store.initCells(this.rows, this.cols, this.type);
   }
 
   clickCell(x: number, y: number, value: string) {
@@ -66,6 +69,11 @@ export class MemoryMatchBoardComponent implements OnInit {
       this.resetClicked();
     });
 
+  }
+
+  changeType() {
+    this.steps = 0;
+    this.store.initCells(this.rows, this.cols, this.type);
   }
 
   private resetClicked() {
