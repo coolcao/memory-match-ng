@@ -36,10 +36,16 @@ export class MemoryMatchBoardComponent implements OnInit {
   }
 
   clickCell(x: number, y: number, value: string) {
+    // 已消除的不再点击
     if (value == '') {
       return;
     }
+    // 如果有两个已打开，则需要等待对比，不能再点击，直到对比完，防止用户连续点击多张牌
     if (this.openedCount() == 2) {
+      return;
+    }
+    // 已经打开的不能再点击
+    if (this.clicked.x == x && this.clicked.y == y) {
       return;
     }
 

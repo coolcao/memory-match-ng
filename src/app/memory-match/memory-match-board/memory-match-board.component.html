@@ -43,7 +43,7 @@
             [ngClass]="{ 'cursor-pointer': !cell.isOpen }"
           >
             <div
-              class="mx-1 my-1 flex h-[112px] w-[80px] items-center justify-center rounded-md bg-gray-50 dark:bg-gray-500"
+              class="mx-1 my-1 flex h-[112px] w-[80px] items-center justify-center rounded-md bg-gray-50 select-none dark:bg-gray-500"
             >
               @if (cell.isOpen) {
                 {{ cell.value }}
