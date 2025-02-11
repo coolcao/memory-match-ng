@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, effect, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { timer } from 'rxjs';
 import { MemoryMatchStore } from '../memory-match.store';
 import { CellType } from '../memory-match.types';
@@ -11,6 +11,12 @@ import { CellType } from '../memory-match.types';
   styleUrl: './memory-match-board.component.css'
 })
 export class MemoryMatchBoardComponent implements OnInit {
+
+  @ViewChild('removePlayer') removePlayer!: ElementRef<HTMLAudioElement>;
+  @ViewChild('closePlayer') closePlayer!: ElementRef<HTMLAudioElement>;
+  @ViewChild('successPlayer') successPlayer!: ElementRef<HTMLAudioElement>;
+
+
   store = inject(MemoryMatchStore);
   CellType = CellType;
 
@@ -36,6 +42,7 @@ export class MemoryMatchBoardComponent implements OnInit {
   constructor() {
     effect(() => {
       if (this.isCompleted()) {
+        this.playSuccess();
         this.showCongratulations = true;
       }
     });
@@ -71,6 +78,7 @@ export class MemoryMatchBoardComponent implements OnInit {
     // 如果遇到相同的，就消除
     if (this.clicked.value == value && (this.clicked.x != x || this.clicked.y != y)) {
       timer(500).subscribe(() => {
+        this.playRemove();
         this.store.removeCell(x, y);
         this.store.removeCell(this.clicked.x, this.clicked.y);
         this.resetClicked();
@@ -80,6 +88,7 @@ export class MemoryMatchBoardComponent implements OnInit {
 
     // 否则，关闭重新点击
     timer(1000).subscribe(() => {
+      this.playClose();
       this.store.closeCell(this.clicked.x, this.clicked.y);
       this.store.closeCell(x, y);
       this.resetClicked();
@@ -106,6 +115,16 @@ export class MemoryMatchBoardComponent implements OnInit {
       x,
       y,
     };
+  }
+
+  private playRemove() {
+    this.removePlayer.nativeElement.play();
+  }
+  private playClose() {
+    this.closePlayer.nativeElement.play();
+  }
+  private playSuccess() {
+    this.successPlayer.nativeElement.play();
   }
 
 
