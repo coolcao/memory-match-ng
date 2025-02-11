@@ -1,0 +1,14 @@
+<div class="fixed inset-0 z-40 bg-black/50 backdrop-blur-md">
+  <canvas id="confettiCanvas" class="absolute inset-0"></canvas>
+</div>
+<div
+  class="fixed inset-0 z-50 flex h-full w-full flex-col items-center justify-center"
+>
+  <div class="text-5xl text-gray-300">{{ text }}</div>
+  <button
+    class="my-10 w-[120px] cursor-pointer rounded-2xl border border-solid border-gray-400 p-4 text-xl text-gray-300 hover:bg-gray-700"
+    (click)="onClick()"
+  >
+    关闭
+  </button>
+</div>

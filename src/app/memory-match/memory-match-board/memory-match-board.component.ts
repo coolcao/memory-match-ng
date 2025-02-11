@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
 import { MemoryMatchStore } from '../memory-match.store';
 import { CellType } from '../memory-match.types';
@@ -30,6 +30,16 @@ export class MemoryMatchBoardComponent implements OnInit {
   cells = this.store.cells;
   openedCount = this.store.openedCount;
   isCompleted = this.store.isCompleted;
+
+  showCongratulations = false;
+
+  constructor() {
+    effect(() => {
+      if (this.isCompleted()) {
+        this.showCongratulations = true;
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.store.initCells(this.rows, this.cols, this.type);
@@ -80,6 +90,10 @@ export class MemoryMatchBoardComponent implements OnInit {
   changeType() {
     this.steps = 0;
     this.store.initCells(this.rows, this.cols, this.type);
+  }
+
+  closeCongratulations() {
+    this.showCongratulations = false;
   }
 
   private resetClicked() {

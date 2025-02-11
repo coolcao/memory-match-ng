@@ -60,3 +60,11 @@
     }
   </div>
 </div>
+
+@if (showCongratulations) {
+  <app-scatter-flowers
+    text="🎉恭喜，完成游戏🎉"
+    (click)="closeCongratulations()"
+  >
+  </app-scatter-flowers>
+}
