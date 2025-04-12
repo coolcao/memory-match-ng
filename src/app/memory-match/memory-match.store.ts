@@ -91,6 +91,11 @@ export class MemoryMatchStore {
     cells[row][col].value = '';
     this._cells.set(cells);
   }
+  matchCells(row1: number, col1: number, row2: number, col2: number) {
+    const cells = [...this._cells()];
+    cells[row1][col1].isMatched = true;
+    cells[row2][col2].isMatched = true;
+  }
 
 
 }

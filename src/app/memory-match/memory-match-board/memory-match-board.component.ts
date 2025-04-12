@@ -79,6 +79,7 @@ export class MemoryMatchBoardComponent implements OnInit {
     if (this.clicked.value == value && (this.clicked.x != x || this.clicked.y != y)) {
       timer(500).subscribe(() => {
         this.playRemove();
+        this.store.matchCells(x, y, this.clicked.x, this.clicked.y);
         this.store.removeCell(x, y);
         this.store.removeCell(this.clicked.x, this.clicked.y);
         this.resetClicked();

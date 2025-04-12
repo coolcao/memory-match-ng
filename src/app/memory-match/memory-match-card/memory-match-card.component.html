@@ -1,0 +1,59 @@
+<div>
+  <!-- 卡片基础层 -->
+  <div
+    class="absolute inset-0 rounded-xl border-2 border-white/20 bg-gradient-to-br from-blue-600/90 to-purple-600/90 dark:from-blue-800/95 dark:to-purple-800/95"
+  ></div>
+
+  <!-- 装饰条纹 -->
+  <div class="absolute inset-0 rounded-xl">
+    <!-- 交叉斜线纹理 -->
+    <div
+      class="absolute inset-0 bg-[linear-gradient(45deg,transparent_48%,rgba(255,255,255,0.2)_50%,transparent_52%),linear-gradient(-45deg,transparent_48%,rgba(255,255,255,0.2)_50%,transparent_52%)] opacity-30 dark:opacity-20"
+    ></div>
+
+    <!-- 边框高光 -->
+    <div
+      class="absolute inset-0 rounded-xl border-2 border-white/10 shadow-inner"
+    ></div>
+
+    <!-- 中心徽章 -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div class="relative flex h-16 w-16 items-center justify-center">
+        <!-- 外环 -->
+        <div
+          class="absolute h-full w-full rounded-full border-2 border-white/30 bg-gradient-to-br from-transparent via-white/5 to-transparent"
+        ></div>
+        <!-- 内圆 -->
+        <div
+          class="absolute h-12 w-12 rounded-full bg-white/5 backdrop-blur-sm"
+        ></div>
+        <!-- 图标 -->
+        <svg
+          class="h-8 w-8 text-white/60"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M3 15a4 4 0 004 4h10a4 4 0 004-4V9a4 4 0 00-4-4H7a4 4 0 00-4 4v6z"
+          />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M12 6v6m0 0l2-2m-2 2l-2-2"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <!-- 边角装饰 -->
+    <div class="absolute top-2 left-2 h-4 w-4 rounded-full bg-white/10"></div>
+    <div
+      class="absolute right-2 bottom-2 h-4 w-4 rounded-full bg-white/10"
+    ></div>
+  </div>
+</div>
