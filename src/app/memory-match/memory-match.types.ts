@@ -6,4 +6,6 @@ export interface Cell {
 export enum CellType {
   Smileys = 1,
   Animals = 2,
+  Foods = 3,
+  Sports = 4,
 }
