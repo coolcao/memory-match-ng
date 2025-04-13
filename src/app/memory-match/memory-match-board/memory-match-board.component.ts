@@ -21,7 +21,7 @@ export class MemoryMatchBoardComponent implements OnInit {
   CellType = CellType;
 
   type: CellType = CellType.Smileys;
-  rows = 4;
+  rows = 5;
   cols = 4;
 
   // 标记第一次点击的单元格
@@ -95,6 +95,16 @@ export class MemoryMatchBoardComponent implements OnInit {
       this.resetClicked();
     });
 
+  }
+
+  restart() {
+    this.steps = 0;
+    this.clicked = {
+      value: '',
+      x: -1,
+      y: -1,
+    };
+    this.store.initCells(this.rows, this.cols, this.type);
   }
 
   changeType() {
